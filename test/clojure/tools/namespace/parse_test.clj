@@ -2,33 +2,31 @@
   (:use clojure.test
         clojure.tools.namespace.parse))
 		
-(deftest t-comment?-positive
-  (are [x] (comment? x)
-     '(comment)
-	 '(comment a b c)))
+(deftest t-comment?
+  (testing "is a comment"
+    (are [x] (comment? x)
+       '(comment)
+	   '(comment a b c)))
+  (testing "not a comment"
+    (are [x] (not (comment? x))
+       7
+	   ()
+	   '(a b c)
+	   'comment
+	   '[comment a b])))
 	 
-	 
-(deftest t-comment?-negative
-  (are [x] (not (comment? x))
-     7
-	 ()
-	 '(a b c)
-	 'comment
-	 '[comment a b]))
-	 
-(deftest t-ns-decl?-positive
-  (are [x] (ns-decl? x)
-     '(ns)
-	 '(ns a b c)))
-	 
-	 
-(deftest t-ns-decl?-negative
-  (are [x] (not (ns-decl? x))
-     7
-	 ()
-	 '(a b c)
-	 'ns
-	 '[ns a b]))	
+(deftest t-ns-decl?
+  (testing "is an ns"
+    (are [x] (ns-decl? x)
+       '(ns)
+	   '(ns a b c)))
+  (testing "not an ns"
+    (are [x] (not (ns-decl? x))
+       7 
+       ()
+	   '(a b c)
+	   'ns
+	   '[ns a b])))
 
 (defn- read-ns-decl-from-string [s]
   (with-open [ptr (clojure.lang.PushbackTextReader. (System.IO.StringReader. s))]
