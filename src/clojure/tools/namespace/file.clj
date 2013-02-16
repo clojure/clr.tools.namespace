@@ -21,12 +21,12 @@
   [file]
   (with-open [rdr (PushbackTextReader. (io/text-reader file))]       ;;; PushbackReader.  io/reader
     (parse/read-ns-decl rdr)))
-
+(declare is-file? is-directory?)
 (defn clojure-file?
   "Returns true if the java.io.File represents a normal Clojure source
   file."
   [^System.IO.FileSystemInfo file]                                         ;;; java.io.File
-  (and (not= (enum-and (.Attributes file) System.IO.FileAttributes/Directory) System.IO.FileAttributes/Directory)   ;;; (.isFile file)
+  (and (is-file? file)   ;;; (.isFile file)
        (.EndsWith (.Name file) ".clj")))                                ;;; .endsWith  .getName 
 
 ;;; Dependency tracker
@@ -58,3 +58,12 @@
   (-> tracker
       (track/remove (keep (::filemap tracker {}) files))
       (update-in [::filemap] #(apply dissoc % files))))
+
+;;;  Added
+
+(defn is-file? [^System.IO.FileSystemInfo file]
+  (not= (enum-and (.Attributes file) System.IO.FileAttributes/Directory) System.IO.FileAttributes/Directory))
+  
+(defn is-directory? [^System.IO.FileSystemInfo file]
+  (= (enum-and (.Attributes file) System.IO.FileAttributes/Directory) System.IO.FileAttributes/Directory))  
+  
