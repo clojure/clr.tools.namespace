@@ -1,4 +1,4 @@
-# cljclr.tools.namespace #
+# clr.tools.namespace #
 
 A port of [clojure/tools.namespace](https://github.com/clojure/tools.namespace) library to ClojureCLR.
 
@@ -13,18 +13,30 @@ From the original README:
 > It has nothing to do with Leiningen, Maven, JAR files, or
 > repositories.
 
+# Releases
+
+Nuget reference:
+
+> Coming soon.
+
+Leiningen/Clojars reference:
+
+   [org.clojure.clr/tools.namespace "0.2.2"]
+   
 
 ## Notes on the ported code ##
 
+The namespaces are the same as in the original to simplify porting code using the original.  Thus, `clojure.tools.namespace.find`, `clojure.tools.namespace.dir`, etc.
+
 See the original's [API documentation](http://clojure.github.com/tools.namespace/) for details.
 
-### `clojure.tools.namespace` namespace ###
+### clojure.tools.namespace ###
 NOTE: The `clojure.tools.namespace` namespace is deprecated in the original.  Therefore, we did not port it.  Please use the `clojure.tools.namspace.*` namespaces instead.
 
-### `clojure.tools.namespace.move` namespace ###
+### clojure.tools.namespace.move ###
 
 NOTE: The `clojure.tools.namespace.move` namespace is marked and 'ALPHA and subject to change'.  We have not ported it yet.
 
-### `clojure.tools.namespace.find` namespace
+### clojure.tools.namespace.find ###
 
 We did not implement searching in JAR files.
