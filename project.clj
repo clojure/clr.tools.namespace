@@ -1,6 +1,6 @@
-(defproject org.clojars.dmiller2718/cljclr.tools.namespace "0.1.0"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+(defproject org.clojure.clr/tools.namespace "0.2.2"
+  :description "Port of clojure.org/tools.namespace to ClojureCLR"
+  :url "https://github.com/clojure/clr.tools.namespace"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies []
