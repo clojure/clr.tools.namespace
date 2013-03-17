@@ -17,7 +17,7 @@ From the original README:
 
 Nuget reference:
 
-> Coming soon.
+    PM> Install-Package clojure.tools.namespace
 
 Leiningen/Clojars reference:
 
@@ -40,3 +40,29 @@ NOTE: The `clojure.tools.namespace.move` namespace is marked and 'ALPHA and subj
 ### clojure.tools.namespace.find ###
 
 We did not implement searching in JAR files.
+
+
+Copyright and License
+----------------------------------------
+
+Original Clojure(JVM) code: 
+
+> Copyright © 2012 Stuart Sierra All rights reserved. The use and
+> distribution terms for this software are covered by the
+> [Eclipse Public License 1.0] which can be found in the file
+> epl-v10.html at the root of this distribution. By using this software
+> in any fashion, you are agreeing to be bound by the terms of this
+> license. You must not remove this notice, or any other, from this
+> software.
+
+Modified version for ClojureCLR:
+
+> Copyright © 2013 David Miller All rights reserved. The use and
+> distribution terms for this software are covered by the
+> [Eclipse Public License 1.0] which can be found in the file
+> epl-v10.html at the root of this distribution. By using this software
+> in any fashion, you are agreeing to be bound by the terms of this
+> license. You must not remove this notice, or any other, from this
+> software.
+
+[Eclipse Public License 1.0]: http://opensource.org/licenses/eclipse-1.0.php
