@@ -17,7 +17,7 @@ From the original README:
 
 Nuget reference:
 
-    PM> Install-Package clojure.tools.namespace
+    PM> Install-Package clr.tools.namespace
 
 Leiningen/Clojars reference:
 
@@ -57,7 +57,7 @@ Original Clojure(JVM) code:
 
 Modified version for ClojureCLR:
 
-> Copyright © 2013 David Miller All rights reserved. The use and
+> Copyright © 2014 David Miller All rights reserved. The use and
 > distribution terms for this software are covered by the
 > [Eclipse Public License 1.0] which can be found in the file
 > epl-v10.html at the root of this distribution. By using this software
