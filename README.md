@@ -17,11 +17,11 @@ From the original README:
 
 Nuget reference:
 
-    PM> Install-Package clr.tools.namespace
+    PM> Install-Package clojure.tools.namespace
 
 Leiningen/Clojars reference:
 
-   [org.clojure.clr/tools.namespace "0.2.2"]
+   [org.clojure.clr/tools.namespace "0.2.7"]
    
 
 ## Notes on the ported code ##
