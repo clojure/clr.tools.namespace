@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("clojure.tools.namespace")]
+[assembly: AssemblyTitle("clr.tools.namespace")]
 [assembly: AssemblyDescription("Tools for managing namespaces in ClojureCLR.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("David Miller")]
-[assembly: AssemblyProduct("clojure.tools.namespace")]
+[assembly: AssemblyProduct("clr.tools.namespace")]
 [assembly: AssemblyCopyright("Copyright © David Miller 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
