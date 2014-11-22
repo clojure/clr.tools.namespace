@@ -17,7 +17,7 @@
 (deftest t-add 
   (let [y (add (tracker) '{ a #{b} b #{c d}})
         w (add y '{a #{c} b #{e} d #{f g}})]
-	(is (equal-dep-map? y '(b a) '(b a) '{b #{c d}, a #{b}} '{d #{b}, c #{b}, b #{a}}))
+	(is (equal-dep-map? y '(b a) '(a b) '{b #{c d}, a #{b}} '{d #{b}, c #{b}, b #{a}}))                  ;;; ordering diff on unload: '(b a)
 	(is (equal-dep-map? w '(a d b) '(a b d) '{d #{f g}, b #{e}, a #{c}} '{g #{d}, f #{d}, e #{b}, d #{b}, c #{b a}, b #{a}}))))
 	
 (deftest t-remove

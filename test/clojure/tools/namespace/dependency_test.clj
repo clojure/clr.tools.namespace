@@ -60,5 +60,5 @@
          (sort (topo-comparator g2) '[three seven nine eight five]))))           
 
 (deftest t-topo-sort
-  (is (= '(one five two three six four seven)                               ;;; (one two three five six four seven)    Why is our order not same as JVM?  Does it matter?
+  (is (= '(one two five four three six seven)                               ;;; (one two three five six four seven)    Why is our order not same as JVM?  Does it matter?
          (topo-sort g2))))
