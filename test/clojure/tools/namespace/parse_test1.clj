@@ -37,7 +37,7 @@
       nil ""
 	  nil "(comment a b c)"
 	  nil "(a) (b) (c)"
-	  nil "(a) (ns a)"
+	  '(ns a) "(a) (ns a)"
 	  '(ns a) "(ns a) (comment (ns b))"
 	  '(ns a) "(comment (ns b)) (comment (ns c)) (ns a) (other things)"))
 	  
