@@ -246,7 +246,7 @@
          (transitive-dependencies g3 :level26)))
   (.Stop sw)  ;;; DM:Added
   (println "dbx: " (.ElapsedMilliseconds sw) "after t-transitive-dependencies g3 :level26 -- took ~2 min on my machine (4 times longer than previous test)")   ;;; (System/currentTimeMillis)
-  )
+  )   )
 
 (deftest t-transitive-dependents
   (is (= '#{four seven}
