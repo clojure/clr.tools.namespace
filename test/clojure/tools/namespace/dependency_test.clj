@@ -62,3 +62,16 @@
 (deftest t-topo-sort
   (is (= '(one two five four three six seven)                               ;;; (one two three five six four seven)    Why is our order not same as JVM?  Does it matter?
          (topo-sort g2))))
+
+(deftest t-no-cycles
+  (is (thrown? Exception
+               (-> (graph)
+                   (depend :a :b)
+                   (depend :b :c)
+                   (depend :c :a)))))
+
+(deftest t-no-self-cycles
+  (is (thrown? Exception
+               (-> (graph)
+                   (depend :a :b)
+                   (depend :a :a)))))		 
