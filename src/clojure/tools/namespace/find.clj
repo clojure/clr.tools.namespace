@@ -14,7 +14,7 @@
             [clojure.set :as set]
             [clojure.tools.namespace.file :as file]
             [clojure.tools.namespace.parse :as parse])
-  (import (System.IO TextReader                                        ;;; (java.io File FileReader BufferedReader PushbackReader
+  (:import (System.IO TextReader                                        ;;; (java.io File FileReader BufferedReader PushbackReader
                      FileSystemInfo)                                   ;;;        InputStreamReader)
           (clojure.lang PushbackTextReader)))                          ;;; (java.util.jar JarFile JarEntry)))
 
