@@ -30,6 +30,7 @@
   (controlled by *read-eval*), and as such should be used only with
   trusted sources."
   [rdr]
+  {:pre [(instance? clojure.lang.PushbackTextReader rdr)]}                  ;;; java.io.PushbackReader
   (try
    (loop []
      (let [form (doto (read rdr) str)]  ; str forces errors, see TNS-1
