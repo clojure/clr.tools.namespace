@@ -27,7 +27,9 @@
   file."
   [^System.IO.FileSystemInfo file]                                         ;;; java.io.File
   (and (is-file? file)   ;;; (.isFile file)
-       (.EndsWith (.Name file) ".clj")))                                ;;; .endsWith  .getName 
+       (or
+         (.EndsWith (.Name file) ".clj")                                   ;;; .endsWith  .getName 
+         (.EndsWith (.Name file) ".cljc"))))                               ;;; .endsWith  .getName 
 
 ;;; Dependency tracker
 

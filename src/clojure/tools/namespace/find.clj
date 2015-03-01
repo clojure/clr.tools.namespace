@@ -46,7 +46,7 @@
 ;;; Finding namespaces in a directory tree
 
 (defn find-clojure-sources-in-dir
-  "Searches recursively under dir for Clojure source files (.clj).
+  "Searches recursively under dir for Clojure source files (.clj, .cljc).
   Returns a sequence of File objects, in breadth-first sort order."            ;;; SystemFileInfo
   [^FileSystemInfo dir]                                                        ;;; ^File
   ;; Use sort by absolute path to get breadth-first search.
@@ -68,9 +68,10 @@
 ;;; Finding namespaces in JAR files
 
 (defn clojure-sources-in-jar
-  "Returns a sequence of filenames ending in .clj found in the JAR file."
+  "Returns a sequence of filenames ending in .clj or .cljc found in the JAR file."
   [jar-file]                                        ;;; [^JarFile jar-file]
-  nil)                                               ;;;(filter #(.endsWith ^String % ".clj") (filenames-in-jar jar-file)))                  
+  nil)                                               ;;;  (filter #(or (.endsWith ^String % ".clj") (.endsWith ^String % ".cljc"))
+                                                     ;;;          (filenames-in-jar jar-file)))              
 
 (defn read-ns-decl-from-jarfile-entry
   "Attempts to read a (ns ...) declaration from the named entry in the
@@ -102,7 +103,7 @@
 
 (defn find-ns-decls
   "Searches a sequence of java.io.File objects (both directories and
-  JAR files) for .clj source files containing (ns...) declarations.
+  JAR files) for .clj or .cljc source files containing (ns...) declarations.
   Returns a sequence of the unevaluated ns declaration forms. Use with
   clojure.java.classpath to search Clojure's classpath."
   [files]
@@ -112,7 +113,7 @@
 
 (defn find-namespaces
   "Searches a sequence of java.io.File objects (both directories and
-  JAR files) for .clj source files containing (ns...) declarations.
+  JAR files) for .clj or .cljc source files containing (ns...) declarations.
   Returns a sequence of the symbol names of the declared
   namespaces. Use with clojure.java.classpath to search Clojure's
   classpath."
