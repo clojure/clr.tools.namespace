@@ -31,7 +31,7 @@ The namespaces are the same as in the original to simplify porting code using th
 See the original's [API documentation](http://clojure.github.com/tools.namespace/) for details.
 
 ### clojure.tools.namespace ###
-NOTE: The `clojure.tools.namespace` namespace is deprecated in the original.  Therefore, we did not port it.  Please use the `clojure.tools.namspace.*` namespaces instead.
+NOTE: The `clojure.tools.namespace` namespace is deprecated in the original.  Therefore, we did not port it.  Please use the `clojure.tools.namespace.*` namespaces instead.
 
 ### clojure.tools.namespace.move ###
 
@@ -47,7 +47,7 @@ Copyright and License
 
 Original Clojure(JVM) code: 
 
-> Copyright © 2012 Stuart Sierra All rights reserved. The use and
+> Copyright Â© 2012 Stuart Sierra All rights reserved. The use and
 > distribution terms for this software are covered by the
 > [Eclipse Public License 1.0] which can be found in the file
 > epl-v10.html at the root of this distribution. By using this software
@@ -57,7 +57,7 @@ Original Clojure(JVM) code:
 
 Modified version for ClojureCLR:
 
-> Copyright © 2014 David Miller All rights reserved. The use and
+> Copyright Â© 2014 David Miller All rights reserved. The use and
 > distribution terms for this software are covered by the
 > [Eclipse Public License 1.0] which can be found in the file
 > epl-v10.html at the root of this distribution. By using this software
