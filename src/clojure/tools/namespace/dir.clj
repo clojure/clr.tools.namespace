@@ -12,6 +12,7 @@
   clojure.tools.namespace.dir
   (:require [clojure.tools.namespace.file :as file]
             [clojure.tools.namespace.track :as track]
+			;;;[clojure.java.classpath :refer [classpath-directories]]
             [clojure.clr.io :as io]                                  ;;; clojure.java.io
             [clojure.set :as set]
             [clojure.string :as string])
@@ -40,7 +41,7 @@
         (file/add-files modified)
         (assoc ::time now))))
 
-(defn- dirs-on-classpath []
+(defn- dirs-on-classpath []                                                    ;;; This has been replaced in JVM by a call to clojure.java.classpath/classpath-directories.  We don't have that, so we're leaving this in
   (filter file/is-directory?                                                   ;;; #(.isDirectory ^File %)
           (map #(DirectoryInfo. ^String %)                                     ;;; #(File. ^String %)
                (string/split
@@ -54,7 +55,7 @@
 
   If no dirs given, defaults to all directories on the classpath."
   [tracker & dirs]
-  (let [ds (or (seq dirs) (dirs-on-classpath))
+  (let [ds (or (seq dirs) (dirs-on-classpath))                              ;;; (classpath-directories)
         files (find-files ds)
         deleted (seq (deleted-files tracker files))
         modified (seq (modified-files tracker files))]
@@ -67,7 +68,7 @@
   dependency tracker to reload files. If no dirs given, defaults to
   all directories on the classpath."
   [tracker & dirs]
-  (let [ds (or (seq dirs) (dirs-on-classpath))
+  (let [ds (or (seq dirs) (dirs-on-classpath))                              ;;; (classpath-directories)
         files (find-files ds)
         deleted (seq (deleted-files tracker files))]
     (update-files tracker deleted files)))

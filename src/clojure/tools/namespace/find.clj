@@ -10,38 +10,14 @@
   ^{:author "Stuart Sierra, modified for ClojureCLR by David Miller",
      :doc "Search for namespace declarations in directories and JAR files."} 
   clojure.tools.namespace.find
-  (:require [clojure.clr.io :as io]                                     ;;; clojure.java.io
+  (:require                                                             ;;;  Doesn't exist for us: [clojure.java.classpath :as classpath]
+            [clojure.clr.io :as io]                                     ;;; clojure.java.io
             [clojure.set :as set]
             [clojure.tools.namespace.file :as file]
             [clojure.tools.namespace.parse :as parse])
   (:import (System.IO TextReader                                        ;;; (java.io File FileReader BufferedReader PushbackReader
                      FileSystemInfo)                                   ;;;        InputStreamReader)
           (clojure.lang PushbackTextReader)))                          ;;; (java.util.jar JarFile JarEntry)))
-
-;;; JAR-file utilities, adapted from clojure.java.classpath            ;;; not really needed for ClojureCLR, but I'll port them anyway
-
-(defn- jar-file?
-  "Returns true if file is a normal file with a .jar or .JAR extension."
-  [f]
-  (let [file (io/as-file f)]                                 ;;; (io/file f)
-                                                             ;;; (and (.isFile file)  - ClojureCLR as-file returns FileInfo only, not DirInfo
-         (.EndsWith (.ToLower (.Name file)) ".jar")))        ;;;      (or (.endsWith (.getName file) ".jar")                       
-                                                             ;;;          (.endsWith (.getName file) ".JAR")))))
-
-(defn- jar-files                                                          ;;; it is not at all clear what the equivalent should be
-  "Given a sequence of File objects, filters it for JAR files, returns    ;;; maybe System.IO.Packaging.ZipPackage
-  a sequence of java.util.jar.JarFile objects."             
-  [files]
-  nil)                                                                    ;;;  (map #(JarFile. ^File %) (filter jar-file? files)))
-
-;;;(defn- filenames-in-jar
-;;;  "Returns a sequence of Strings naming the non-directory entries in
-;;;  the JAR file."
-;;;  [^JarFile jar-file]
-;;;  (map #(.getName ^JarEntry %)
-;;;       (filter #(not (.isDirectory ^JarEntry %))
-;;;               (enumeration-seq (.entries jar-file)))))
-
 
 ;;; Finding namespaces in a directory tree
 
@@ -71,7 +47,7 @@
   "Returns a sequence of filenames ending in .clj or .cljc found in the JAR file."
   [jar-file]                                        ;;; [^JarFile jar-file]
   nil)                                               ;;;  (filter #(or (.endsWith ^String % ".clj") (.endsWith ^String % ".cljc"))
-                                                     ;;;          (filenames-in-jar jar-file)))              
+                                                     ;;;          (classpath/filenames-in-jar jar-file)))              
 
 (defn read-ns-decl-from-jarfile-entry
   "Attempts to read a (ns ...) declaration from the named entry in the
@@ -103,13 +79,22 @@
 
 (defn find-ns-decls
   "Searches a sequence of java.io.File objects (both directories and
-  JAR files) for .clj or .cljc source files containing (ns...) declarations.
-  Returns a sequence of the unevaluated ns declaration forms. Use with
-  clojure.java.classpath to search Clojure's classpath."
-  [files]
-  (concat
-   (mapcat find-ns-decls-in-dir (filter file/is-directory? files))              ;;;  #(.isDirectory ^File %)
-   (mapcat find-ns-decls-in-jarfile (jar-files files))))
+  JAR files) for platform source files containing (ns...)
+  declarations. Returns a sequence of the unevaluated ns declaration
+  forms. Use with clojure.java.classpath to search Clojure's
+  classpath.
+
+  Optional second argument platform is either clj (default) or cljs,
+  both defined in clojure.tools.namespace.find."
+  ([files]
+   (find-ns-decls files nil))
+  ([files platform]
+   (concat
+    (mapcat #(find-ns-decls-in-dir % platform)
+            (filter file/is-directory? files))                                  ;;;  #(.isDirectory ^File %)
+                                                                                ;;;(mapcat #(find-ns-decls-in-jarfile % platform)
+                                                                                ;;;        (map #(JarFile. (io/file %))
+       )))                                                                      ;;;             (filter classpath/jar-file? files)))
 
 (defn find-namespaces
   "Searches a sequence of java.io.File objects (both directories and
