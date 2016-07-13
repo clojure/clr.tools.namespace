@@ -16,26 +16,64 @@
 
 (defn read-file-ns-decl
   "Attempts to read a (ns ...) declaration from file, and returns the
-  unevaluated form.  Returns nil if read fails, or if the first form
-  is not a ns declaration."
-  [file]
-  (with-open [rdr (PushbackTextReader. (io/text-reader file))]       ;;; PushbackReader.  io/reader
-    (parse/read-ns-decl rdr)))
-(declare is-file? is-directory?)
-(defn clojure-file?
-  "Returns true if the java.io.File represents a normal Clojure source
-  file."
-  [^System.IO.FileSystemInfo file]                                         ;;; java.io.File
-  (and (is-file? file)   ;;; (.isFile file)
-       (or
-         (.EndsWith (.Name file) ".clj")                                   ;;; .endsWith  .getName 
-         (.EndsWith (.Name file) ".cljc"))))                               ;;; .endsWith  .getName 
+   unevaluated form. Returns nil if read fails due to invalid syntax or
+  if a ns declaration cannot be found. read-opts is passed through to
+  tools.reader/read."
+  ([file]
+   (read-file-ns-decl file nil))
+  ([file read-opts]
+   (with-open [rdr (PushbackTextReader. (io/text-reader file))]                ;;; PushbackReader.  io/reader
+     (parse/read-ns-decl rdr read-opts))))
 
+(declare is-file? is-directory?)
+
+(defn file-with-extension?
+  "Returns true if the java.io.File represents a file whose name ends
+  with one of the Strings in extensions."
+  {:added "0.3.0"}
+  [^java.io.FileSystemInfo file extensions]                                    ;;; ^java.io.File 
+  (and (is-file? file)                                                         ;;; (.isFile file)  java.io.File conflates regular files and directors.  Not so with FileInfo
+       (let [extn (.Extension file)]                                           ;;; name (.getName file)
+         (some #(= extn %) extensions))))                                      ;;; #(.endsWith name %)
+
+(def ^{:added "0.3.0"}
+  clojure-extensions
+  "File extensions for Clojure (JVM) files."
+  (list ".clj" ".cljc"))
+
+(def ^{:added "0.3.0"}
+  clojurescript-extensions
+  "File extensions for ClojureScript files."
+  (list ".cljs" ".cljc")
+
+(def ^{:added "0.3.0"}
+  clojure-clr-extensions
+  "File extensions for Clojure (CLR) files."
+  (list ".cljr" ".cljc")
+
+(defn clojure-file?
+  "Returns true if the java.io.File represents a file which will be
+  read by the Clojure (JVM) compiler."
+  [^System.IO.FileSystemInfo file]                                         ;;; java.io.File
+  (file-with-extension? file clojure-extensions))
+
+(defn clojurescript-file?
+  "Returns true if the java.io.File represents a file which will be
+  read by the Clojure (JVM) compiler."
+  [^System.IO.FileSystemInfo file]                                         ;;; java.io.File
+  (file-with-extension? file clojurescript-extensions))
+
+(defn clojure-clr-file?
+  "Returns true if the java.io.File represents a file which will be
+  read by the Clojure (JVM) compiler."
+  [^System.IO.FileSystemInfo file]                                         ;;; java.io.File
+  (file-with-extension? file clojure-clr-extensions))
+  
 ;;; Dependency tracker
 
-(defn- files-and-deps [files]
+(defn- files-and-deps [files read-opts]
   (reduce (fn [m file]
-            (if-let [decl (read-file-ns-decl file)]
+            (if-let [decl (read-file-ns-decl file read-opts)]
               (let [deps (parse/deps-from-ns-decl decl)
                     name (second decl)]
                 (-> m
@@ -48,12 +86,15 @@
 
 (defn add-files
   "Reads ns declarations from files; returns an updated dependency
-  tracker with those files added."
-  [tracker files]
-  (let [{:keys [depmap filemap]} (files-and-deps files)]
-    (-> tracker
-        (track/add depmap)
-        (update-in [::filemap] merge-map filemap))))
+  tracker with those files added. read-opts is passed through to
+  tools.reader."
+  ([tracker files]
+   (add-files tracker files nil))
+  ([tracker files read-opts]
+   (let [{:keys [depmap filemap]} (files-and-deps files read-opts)]
+     (-> tracker
+         (track/add depmap)
+         (update-in [::filemap] merge-map filemap)))))
 
 (defn remove-files
   "Returns an updated dependency tracker with files removed. The files
