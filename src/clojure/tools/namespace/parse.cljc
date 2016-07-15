@@ -25,15 +25,21 @@
   (and (list? form) (= 'ns (first form))))
 
 (def clj-read-opts
+  "Map of options for tools.reader/read allowing reader conditionals
+  with the :clj feature enabled."
   {:read-cond :allow
    :features #{:clj}})
  
 (def cljs-read-opts
+  "Map of options for tools.reader/read allowing reader conditionals
+  with the :cljs feature enabled."
   {:read-cond :allow
    :features #{:cljs}})
 
 ;; DM: Added
 (def cljr-read-opts
+  "Map of options for tools.reader/read allowing reader conditionals
+  with the :cljr feature enabled."
   {:read-cond :allow
    :features #{:cljr}})
    
