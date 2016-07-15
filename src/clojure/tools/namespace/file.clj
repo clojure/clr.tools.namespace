@@ -23,7 +23,8 @@
    (read-file-ns-decl file nil))
   ([file read-opts]
    (with-open [rdr (PushbackTextReader. (io/text-reader file))]                ;;; PushbackReader.  io/reader
-     (parse/read-ns-decl rdr read-opts))))
+     (try (parse/read-ns-decl rdr read-opts)
+          (catch Exception _ nil)))))
 
 (declare is-file? is-directory?)
 
