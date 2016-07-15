@@ -91,7 +91,7 @@
   {:added "0.3.0"}
   ([dir] (find-namespaces-in-dir dir nil))
   ([dir platform]
-   (map second (find-ns-decls-in-dir dir platform))))
+   (map parse/name-from-ns-decl (find-ns-decls-in-dir dir platform))))
 
 ;;; Finding namespaces in JAR files
 
@@ -161,7 +161,7 @@
   ([jarfile]
    (find-namespaces-in-jarfile jarfile nil))
   ([jarfile platform]                                                              ;;; ^JarFile 
-   (map second (find-ns-decls-in-jarfile jarfile platform))))
+   (map parse/name-from-ns-decl (find-ns-decls-in-jarfile jarfile platform))))
 
 
 ;;; Finding namespaces
@@ -197,4 +197,4 @@
   ([files]
    (find-namespaces files nil))
   ([files platform]
-   (map second (find-ns-decls files platform))))
+   (map parse/name-from-ns-decl (find-ns-decls files platform))))
