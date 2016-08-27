@@ -15,8 +15,8 @@
             [clojure.set :as set]
             [clojure.tools.namespace.file :as file]
             [clojure.tools.namespace.parse :as parse])
-  (:import (System.IO TextReader                                        ;;; (java.io File FileReader BufferedReader PushbackReader
-                     FileSystemInfo)                                   ;;;        InputStreamReader)
+  (:import (System.IO TextReader                                       ;;; (java.io File FileReader BufferedReader PushbackReader
+                     DirectoryInfo FileSystemInfo)                     ;;;        InputStreamReader)
           (clojure.lang PushbackTextReader)))                          ;;; (java.util.jar JarFile JarEntry)))
 
 (def ^{:added "0.3.0"}
@@ -55,7 +55,7 @@
   {:added "0.3.0"}
   ([dir]
    (find-sources-in-dir dir nil))
-  ([^File dir platform]
+  ([^DirectoryInfo dir platform]                               ;;; ^File
    (let [{:keys [extensions]} (or platform clj)]
      (->> (file-seq dir)
           (filter #(file/file-with-extension? % extensions))
@@ -72,7 +72,8 @@
   (find-sources-in-dir dir clj))
 
 (defn find-ns-decls-in-dir
- source files; returns the unevaluated ns declarations.
+  "Searches dir recursively for (ns ...) declarations in Clojure
+  source files; returns the unevaluated ns declarations.
 
   Optional second argument platform is either clj (default) or cljs,
   both defined in clojure.tools.namespace.find."
@@ -107,13 +108,12 @@
   {:added "0.3.0"}
   ([jar-file]
    (sources-in-jar jar-file nil))
-  ([jar-file]                                    ;;; [^JarFile jar-file platform]
+  ([jar-file platform]                           ;;; [^JarFile jar-file platform]
    nil))                                         ;;; (let [{:keys [extensions]} (or platform clj)]
                                                  ;;; (filter #(ends-with-extension % extensions)
-                                                       (classpath/filenames-in-jar jar-file)))))
+                                                 ;;;      (classpath/filenames-in-jar jar-file)))
 
 (defn clojure-sources-in-jar
-  "Returns a sequence of filenames ending in .clj or .cljc found in the JAR file."
   "DEPRECATED: replaced by sources-in-jar
 
   Returns a sequence of filenames ending in .clj or .cljc found in the

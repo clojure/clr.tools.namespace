@@ -32,7 +32,7 @@
   "Returns true if the java.io.File represents a file whose name ends
   with one of the Strings in extensions."
   {:added "0.3.0"}
-  [^java.io.FileSystemInfo file extensions]                                    ;;; ^java.io.File 
+  [^System.IO.FileInfo file extensions]                                    ;;; ^java.io.File 
   (and (is-file? file)                                                         ;;; (.isFile file)  java.io.File conflates regular files and directors.  Not so with FileInfo
        (let [extn (.Extension file)]                                           ;;; name (.getName file)
          (some #(= extn %) extensions))))                                      ;;; #(.endsWith name %)
@@ -45,12 +45,12 @@
 (def ^{:added "0.3.0"}
   clojurescript-extensions
   "File extensions for ClojureScript files."
-  (list ".cljs" ".cljc")
+  (list ".cljs" ".cljc"))
 
 (def ^{:added "0.3.0"}
   clojure-clr-extensions
   "File extensions for Clojure (CLR) files."
-  (list ".cljr" ".cljc")
+  (list ".cljr" ".cljc"))
 
 (defn clojure-file?
   "Returns true if the java.io.File represents a file which will be

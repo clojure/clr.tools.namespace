@@ -23,7 +23,7 @@
   (->> dirs
        (map make-dir-info)                         ;;; (map io/file)
        (filter #(.Exists ^DirectoryInfo %))             ;;; #(.exists ^File %)
-       (mapcat #(find/find-sources-in-dir % platform)))
+       (mapcat #(find/find-sources-in-dir % platform))))
 
 (defn- modified-files [tracker files]
   (filter #(DateTime/op_LessThan ^DateTime (::time tracker 0) (.LastWriteTimeUTC ^FileSystemInfo %)) files))         ;;; (.lastModified ^File %)
