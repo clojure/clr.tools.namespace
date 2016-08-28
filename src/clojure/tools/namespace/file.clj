@@ -16,15 +16,13 @@
 
 (defn read-file-ns-decl
   "Attempts to read a (ns ...) declaration from file, and returns the
-   unevaluated form. Returns nil if read fails due to invalid syntax or
-  if a ns declaration cannot be found. read-opts is passed through to
-  tools.reader/read."
+  unevaluated form. Returns nil if ns declaration cannot be found.
+  read-opts is passed through to tools.reader/read."
   ([file]
    (read-file-ns-decl file nil))
   ([file read-opts]
    (with-open [rdr (PushbackTextReader. (io/text-reader file))]                ;;; PushbackReader.  io/reader
-     (try (parse/read-ns-decl rdr read-opts)
-          (catch Exception _ nil)))))
+     (parse/read-ns-decl rdr read-opts))))
 
 (declare is-file? is-directory?)
 
