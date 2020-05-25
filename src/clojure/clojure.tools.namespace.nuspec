@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Updated to version 0.3.0</releaseNotes>
-    <copyright>Copyright David Miller 2016</copyright>
+    <copyright>Copyright Rich Hickey, David Miller 2020</copyright>
     <tags>Clojure ClojureCLR</tags>
   </metadata>
 </package>

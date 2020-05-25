@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net35</TargetFramework>
+    <TargetFrameworks>net461;netstandard2.1</TargetFrameworks>
     <OutputType>Library</OutputType>
     <RootNamespace>clojure</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="tools\namespace\dependency.clj" />
+    <EmbeddedResource Include="tools\namespace\dependency.cljc" />
     <EmbeddedResource Include="tools\namespace\dir.clj" />
     <EmbeddedResource Include="tools\namespace\file.clj" />
     <EmbeddedResource Include="tools\namespace\find.clj" />
-    <EmbeddedResource Include="tools\namespace\parse.clj" />
+    <EmbeddedResource Include="tools\namespace\parse.cljc" />
     <EmbeddedResource Include="tools\namespace\reload.clj" />
     <EmbeddedResource Include="tools\namespace\repl.clj" />
-    <EmbeddedResource Include="tools\namespace\track.clj" />
+    <EmbeddedResource Include="tools\namespace\track.cljc" />
   </ItemGroup>
 </Project>
