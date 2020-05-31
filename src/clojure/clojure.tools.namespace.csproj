@@ -3,7 +3,16 @@
     <TargetFrameworks>net461;netstandard2.1</TargetFrameworks>
     <OutputType>Library</OutputType>
     <RootNamespace>clojure</RootNamespace>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Title>clr.tools.namespace</Title>
+    <Product>clr.tools.namespace</Product>
+    <AssemblyTitle>clr.tools.namespace</AssemblyTitle>
+    <Description>Tools for managing namespaces in ClojureCLR.</Description>
+    <Copyright>Copyright © Rich Hickey, David Miller 2020</Copyright>
+    <Company>ClojureCLR contributors</Company>
+    <Version>1.0.0.0</Version> 
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="tools\namespace\dependency.cljc" />
@@ -14,5 +23,8 @@
     <EmbeddedResource Include="tools\namespace\reload.clj" />
     <EmbeddedResource Include="tools\namespace\repl.clj" />
     <EmbeddedResource Include="tools\namespace\track.cljc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 </Project>

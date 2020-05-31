@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/clojure/clr.tools.namespace</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Updated to version 0.3.0</releaseNotes>
+    <releaseNotes>Updated to version 0.3.2</releaseNotes>
     <copyright>Copyright Rich Hickey, David Miller 2020</copyright>
     <tags>Clojure ClojureCLR</tags>
   </metadata>
