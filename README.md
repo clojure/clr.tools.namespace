@@ -21,7 +21,7 @@ Nuget reference:
 
 Leiningen/Clojars reference:
 
-   [org.clojure.clr/tools.namespace "0.3.0"]
+   [org.clojure.clr/tools.namespace "1.0.0"]
    
 
 ## Notes on the ported code ##
@@ -55,14 +55,5 @@ Original Clojure(JVM) code:
 > license. You must not remove this notice, or any other, from this
 > software.
 
-Modified version for ClojureCLR:
-
-> Copyright © 2014 David Miller All rights reserved. The use and
-> distribution terms for this software are covered by the
-> [Eclipse Public License 1.0] which can be found in the file
-> epl-v10.html at the root of this distribution. By using this software
-> in any fashion, you are agreeing to be bound by the terms of this
-> license. You must not remove this notice, or any other, from this
-> software.
 
 [Eclipse Public License 1.0]: http://opensource.org/licenses/eclipse-1.0.php
