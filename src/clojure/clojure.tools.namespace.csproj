@@ -6,13 +6,18 @@
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup>
-    <Title>clr.tools.namespace</Title>
-    <Product>clr.tools.namespace</Product>
-    <AssemblyTitle>clr.tools.namespace</AssemblyTitle>
+    <PackageId>clojure.tools.namespace</PackageId>
+    <Title>clojure.tools.namespace</Title>
+    <Product>clojure.tools.namespace</Product>
+    <AssemblyTitle>clojure.tools.namespace</AssemblyTitle>
+	<Authors>dmiller</Authors>
     <Description>Tools for managing namespaces in ClojureCLR.</Description>
     <Copyright>Copyright © Rich Hickey, David Miller 2020</Copyright>
+    <PackageLicenseExpression>EPL-1.0</PackageLicenseExpression>
+	<RepositoryUrl>https://github.com/clojure/clr.tools.reader</RepositoryUrl>
     <Company>ClojureCLR contributors</Company>
-    <Version>1.0.0.0</Version> 
+	<PackageTags>Clojure;ClojureCLR</PackageTags>
+    <Version>1.0.0.1</Version> 
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="tools\namespace\dependency.cljc" />
