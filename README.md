@@ -21,7 +21,7 @@ Nuget reference:
 
 Leiningen/Clojars reference:
 
-   [org.clojure.clr/tools.namespace "1.0.0.1"]
+   [org.clojure.clr/tools.namespace "1.0.0.2"]
    
 
 ## Notes on the ported code ##
