@@ -1,9 +1,9 @@
-(defproject org.clojure.clr/tools.namespace "1.0.0.2"
+(defproject org.clojure.clr/tools.namespace "1.0.0.3"
   :description "Port of clojure.org/tools.namespace to ClojureCLR"
   :url "https://github.com/clojure/clr.tools.namespace"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure.clr/tools.reader "1.3.2.1"]]
+  :dependencies [[org.clojure.clr/tools.reader "1.3.2.2"]]
   :min-lein-version "2.0.0"
   :plugins [[lein-clr "0.2.0"]]
   :deploy-repositories [["clojars" {:url "https://clojars.org/repo/"
