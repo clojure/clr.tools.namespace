@@ -17,7 +17,7 @@
 	<RepositoryUrl>https://github.com/clojure/clr.tools.reader</RepositoryUrl>
     <Company>ClojureCLR contributors</Company>
 	<PackageTags>Clojure;ClojureCLR</PackageTags>
-    <Version>1.1.0.1</Version> 
+    <Version>1.2.0</Version> 
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="tools\namespace\dependency.cljc" />
