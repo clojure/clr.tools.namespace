@@ -19,6 +19,8 @@
                      DirectoryInfo FileSystemInfo)                     ;;;        InputStreamReader)
           (clojure.lang PushbackTextReader)))                          ;;; (java.util.jar JarFile JarEntry)))
 
+(set! *warn-on-reflection* true)
+
 (def ^{:added "0.3.0"}
   clj
   "Platform definition of file extensions and reader options for
@@ -84,14 +86,20 @@
 (defn find-ns-decls-in-dir
   "Searches dir recursively for (ns ...) declarations in Clojure
   source files; returns the unevaluated ns declarations.
-
+  The symbol name in the returned ns declaration will contain metadata
+  for the corresponding directory and located file within at keys
+  :dir and :file.
+  
   Optional second argument platform is either clj (default) or cljs,
   both defined in clojure.tools.namespace.find."
   {:added "0.2.0"}
   ([dir] (find-ns-decls-in-dir dir nil))
   ([dir platform]
    (keep #(ignore-reader-exception
-           (file/read-file-ns-decl % (:read-opts platform)))
+           (let [[_ nom & more] (file/read-file-ns-decl % (:read-opts platform))]
+             (list* 'ns (with-meta nom
+                          {:dir (.Name ^System.IO.DirectoryInfo dir) :file (.Name ^System.IO.FileInfo %)}) ;; .getName ^java.io.File x 2
+                    more)))
           (find-sources-in-dir dir platform))))
 		  
 (defn find-namespaces-in-dir
@@ -109,7 +117,7 @@
 
 (defn- ends-with-extension
   [^String filename extensions]
-  (some #(.EndsWith filename %) extensions))                              ;;; .endsWith
+  (some #(.EndsWith filename ^String %) extensions))                              ;;; .endsWith, add type hint
 
 (defn sources-in-jar
   "Returns a sequence of source file names found in the JAR file.
@@ -138,7 +146,10 @@
   "Attempts to read a (ns ...) declaration from the named entry in the
   JAR file, and returns the unevaluated form. Returns nil if read
   fails due to invalid syntax or if a ns declaration cannot be found.
-
+  The symbol name in the returned ns declaration will contain metadata
+  for the corresponding jar filename and located file within at keys
+  :jar and :file.
+  
   Optional third argument platform is either clj (default) or cljs,
   both defined in clojure.tools.namespace.find."
   ([jarfile entry-name]
@@ -149,7 +160,10 @@
                                                                                     ;;;                    (io/reader
                                                                                     ;;;                     (.getInputStream jarfile (.getEntry jarfile entry-name))))]
                                                                                     ;;;       (ignore-reader-exception
-                                                                                    ;;;        (parse/read-ns-decl rdr read-opts))))))
+                                                                                    ;;;         (let [[_ nom & more] (parse/read-ns-decl rdr read-opts)]
+                                                                                    ;;;           (list* 'ns (with-meta nom
+                                                                                    ;;;                        {:jar (.getName ^java.io.File jarfile) :file entry-name})
+                                                                                    ;;;                  more)))))))
 (defn find-ns-decls-in-jarfile
   "Searches the JAR file for source files containing (ns ...)
   declarations; returns the unevaluated ns declarations.
