@@ -24,7 +24,8 @@
   (let [y (add (tracker) '{ a #{b} b #{c d}})
         z (remove y '(d))
 		w (remove y '(q))]
-	(is (equal-dep-map? z  '(b a)  '(a b d) '{b #{c d}, a #{b}} '{d #{b}, c #{b}, b #{a}}))
+	#_(is (equal-dep-map? z  '(b a)  '(a b d) '{b #{c d}, a #{b}} '{d #{b}, c #{b}, b #{a}}))  ;; with the TNS-6 change, shouldn't this test change?
+	(is (equal-dep-map? z  '(b a)  '(a b) '{b #{c}, a #{b}} '{c #{b}, b #{a}}))
 	(is (= y w))))
 	
 	
