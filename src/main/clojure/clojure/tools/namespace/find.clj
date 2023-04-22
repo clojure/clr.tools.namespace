@@ -96,10 +96,11 @@
   ([dir] (find-ns-decls-in-dir dir nil))
   ([dir platform]
    (keep #(ignore-reader-exception
-           (let [[_ nom & more] (file/read-file-ns-decl % (:read-opts platform))]
-             (list* 'ns (with-meta nom
-                          {:dir (.Name ^System.IO.DirectoryInfo dir) :file (.Name ^System.IO.FileInfo %)}) ;; .getName ^java.io.File x 2
-                    more)))
+           (let [[_ nom & more :as decl] (file/read-file-ns-decl % (:read-opts platform))]
+             (when (and decl nom (symbol? nom))		   
+               (list* 'ns (with-meta nom
+                            {:dir (.Name ^System.IO.DirectoryInfo dir) :file (.Name ^System.IO.FileInfo %)}) ;; .getName ^java.io.File x 2
+                      more))))
           (find-sources-in-dir dir platform))))
 		  
 (defn find-namespaces-in-dir
