@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>clojure.tools.namespace</PackageId>
+		<RootNamespace>clojure.tools</RootNamespace>
+		<Title>clojure.tools.namespace</Title>
+		<Product>clojure.tools.namespace</Product>
+		<AssemblyTitle>clojure.tools.namespace</AssemblyTitle>
+		<Authors>ClojureCLR Contributors</Authors>
+		<Description>Tools for managing namespaces in ClojureCLR.</Description>
+		<Copyright>Copyright © Rich Hickey, ClojureCLR Contributors 2023</Copyright>
+		<PackageLicenseExpression>EPL-1.0</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/clojure/clr.tools.namesapce</RepositoryUrl>
+		<Company>ClojureCLR contributors</Company>
+		<PackageTags>Clojure;ClojureCLR</PackageTags>
+		<Version>1.4.4</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<EmbeddedResource CopyToOutputDirectory="Never" Include ="..\..\clojure\clojure\tools\**\*"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="clojure.tools.reader" Version="1.3.7" />
+	</ItemGroup>
+
+</Project>
