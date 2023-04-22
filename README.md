@@ -17,11 +17,11 @@ From the original README:
 
 Nuget reference:
 
-    PM> Install-Package clojure.tools.namespace
+    PM> Install-Package clojure.tools.namespace -Version 1.4.4
 
 Leiningen/Clojars reference:
 
-   [org.clojure.clr/tools.namespace "1.2.0"]
+   [org.clojure.clr/tools.namespace "1.4.4"]
    
 
 ## Notes on the ported code ##
