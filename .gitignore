@@ -3,6 +3,9 @@ pom.xml
 /classes/
 /targets/
 /target
+.cpcache
+.idea/
+*.iml
 /classes
 /checkouts
 *.jar
