@@ -16,7 +16,7 @@
             [clojure.tools.namespace.file :as file]
             [clojure.tools.namespace.parse :as parse])
   (:import (System.IO TextReader                                       ;;; (java.io File FileReader BufferedReader PushbackReader
-                     DirectoryInfo FileSystemInfo)                     ;;;        InputStreamReader)
+             FileInfo DirectoryInfo FileSystemInfo)                    ;;;        InputStreamReader)
           (clojure.lang PushbackTextReader)))                          ;;; (java.util.jar JarFile JarEntry)))
 
 (set! *warn-on-reflection* true)
@@ -99,7 +99,7 @@
            (let [[_ nom & more :as decl] (file/read-file-ns-decl % (:read-opts platform))]
              (when (and decl nom (symbol? nom))		   
                (list* 'ns (with-meta nom
-                            {:dir (.Name ^System.IO.DirectoryInfo dir) :file (.Name ^System.IO.FileInfo %)}) ;; .getName ^java.io.File x 2
+                            {:dir (.Name ^DirectoryInfo dir) :file (.Name ^FileInfo %)}) ;; .getName ^java.io.File x 2
                       more))))
           (find-sources-in-dir dir platform))))
 		  
@@ -163,7 +163,7 @@
                                                                                     ;;;       (ignore-reader-exception
                                                                                     ;;;         (let [[_ nom & more] (parse/read-ns-decl rdr read-opts)]
                                                                                     ;;;           (list* 'ns (with-meta nom
-                                                                                    ;;;                        {:jar (.getName ^java.io.File jarfile) :file entry-name})
+                                                                                    ;;;                        {:jar (.getName ^JarFile jarfile) :file entry-name})
                                                                                     ;;;                  more)))))))
 (defn find-ns-decls-in-jarfile
   "Searches the JAR file for source files containing (ns ...)
