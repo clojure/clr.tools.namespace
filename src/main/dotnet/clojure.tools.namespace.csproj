@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <RootNamespace>clojure</RootNamespace>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>clojure.tools.namespace</PackageId>
+    <Title>clojure.tools.namespace</Title>
+    <Product>clojure.tools.namespace</Product>
+    <AssemblyTitle>clojure.tools.namespace</AssemblyTitle>
+	<Authors>dmiller</Authors>
+    <Description>Tools for managing namespaces in ClojureCLR.</Description>
+    <Copyright>Copyright © Rich Hickey, David Miller 2020</Copyright>
+    <PackageLicenseExpression>EPL-1.0</PackageLicenseExpression>
+	<RepositoryUrl>https://github.com/clojure/clr.tools.reader</RepositoryUrl>
+    <Company>ClojureCLR contributors</Company>
+	<PackageTags>Clojure;ClojureCLR</PackageTags>
+    <Version>1.2.0</Version> 
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="tools\namespace\dependency.cljc" />
+    <EmbeddedResource Include="tools\namespace\dir.clj" />
+    <EmbeddedResource Include="tools\namespace\file.clj" />
+    <EmbeddedResource Include="tools\namespace\find.clj" />
+    <EmbeddedResource Include="tools\namespace\parse.cljc" />
+    <EmbeddedResource Include="tools\namespace\reload.clj" />
+    <EmbeddedResource Include="tools\namespace\repl.clj" />
+    <EmbeddedResource Include="tools\namespace\track.cljc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="clr.tools.reader" Version="1.3.6" />
+  </ItemGroup>
+</Project>
