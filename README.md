@@ -15,13 +15,21 @@ From the original README:
 
 # Releases
 
-Nuget reference:
+Latest stable release: 1.5.0
 
-    PM> Install-Package clojure.tools.namespace -Version 1.4.4
+[CLI/`deps.edn`](https://clojure.org/reference/deps_edn) dependency information:
+```clojure
+io.github.clojure/clr.tools.namespace {:git/tag "v1.5.0" :git/sha "dff0de2"}
+```
 
-Leiningen/Clojars reference:
+[Nuget](https://nuget.org) reference:
 
-   [org.clojure.clr/tools.namespace "1.4.4"]
+>  Install-Package clojure.tools.namespace -Version 1.5.0
+	
+[Leiningen](https://leiningen.org/)  reference:
+```clojure
+   [org.clojure.clr/tools.namespace "1.5.0]
+```
    
 
 ## Notes on the ported code ##
