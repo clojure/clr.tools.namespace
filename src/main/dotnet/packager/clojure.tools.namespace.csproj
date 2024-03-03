@@ -17,7 +17,7 @@
 		<RepositoryUrl>https://github.com/clojure/clr.tools.namesapce</RepositoryUrl>
 		<Company>ClojureCLR contributors</Company>
 		<PackageTags>Clojure;ClojureCLR</PackageTags>
-		<Version>1.5.0</Version>
+		<Version>1.5.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
