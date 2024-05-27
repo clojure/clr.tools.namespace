@@ -38,3 +38,16 @@
     (is (every? #{(.Name ^System.IO.DirectoryInfo dir)}                 ;;   .getName ^java.io.File
          (map #(-> % second meta :dir)
               (find/find-ns-decls [dir]))))))		 
+			  
+;;; DM: added
+(deftest t-find-cljr-and-cljc-files
+  "main.cljr depends on one.cljc which depends on two.cljr.
+  two.clj also exists but should not be returned"
+  (let [dir (help/create-temp-dir "t-find-cljr-and-cljc-files")
+        main-cljr (help/create-source dir 'example.main :cljr '[example.one])
+        one-cljc (help/create-source dir 'example.one :cljc '[example.two])
+        two-cljs (help/create-source dir 'example.two :cljs)
+        two-cljr (help/create-source dir 'example.two :cljr)]
+    (is (help/same-files?
+         [main-cljr one-cljc two-cljr]
+         (find/find-sources-in-dir dir find/cljr)))))			  

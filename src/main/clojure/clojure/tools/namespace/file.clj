@@ -48,7 +48,7 @@
 (def ^{:added "0.3.0"}
   clojure-clr-extensions
   "File extensions for Clojure (CLR) files."
-  (list ".cljr" ".cljc"))
+  (list ".cljr" ".cljc" ".clj" ))
 
 (defn clojure-file?
   "Returns true if the java.io.File represents a file which will be
