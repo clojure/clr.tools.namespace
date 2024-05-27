@@ -12,12 +12,12 @@
 		<AssemblyTitle>clojure.tools.namespace</AssemblyTitle>
 		<Authors>ClojureCLR Contributors</Authors>
 		<Description>Tools for managing namespaces in ClojureCLR.</Description>
-		<Copyright>Copyright © Rich Hickey, ClojureCLR Contributors 2023</Copyright>
+		<Copyright>Copyright © Rich Hickey, ClojureCLR Contributors 2024</Copyright>
 		<PackageLicenseExpression>EPL-1.0</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/clojure/clr.tools.namesapce</RepositoryUrl>
 		<Company>ClojureCLR contributors</Company>
 		<PackageTags>Clojure;ClojureCLR</PackageTags>
-		<Version>1.5.1</Version>
+		<Version>1.5.2</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
