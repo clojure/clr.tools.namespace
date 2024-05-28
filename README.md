@@ -15,20 +15,20 @@ From the original README:
 
 # Releases
 
-Latest stable release: 1.5.1
+Latest stable release: 1.5.2
 
 [CLI/`deps.edn`](https://clojure.org/reference/deps_edn) dependency information:
 ```clojure
-io.github.clojure/clr.tools.namespace {:git/tag "v1.5.1" :git/sha "0c1c74f"}
+io.github.clojure/clr.tools.namespace {:git/tag "v1.5.2" :git/sha "d540923"}
 ```
 
 [Nuget](https://nuget.org) reference:
 
->  Install-Package clojure.tools.namespace -Version 1.5.1
+>  Install-Package clojure.tools.namespace -Version 1.5.2
 	
 [Leiningen](https://leiningen.org/)  reference:
 ```clojure
-   [org.clojure.clr/tools.namespace "1.5.1]
+   [org.clojure.clr/tools.namespace "1.5.2]
 ```
    
 
@@ -55,13 +55,6 @@ Copyright and License
 
 Original Clojure(JVM) code: 
 
-> Copyright © 2012 Stuart Sierra All rights reserved. The use and
-> distribution terms for this software are covered by the
-> [Eclipse Public License 1.0] which can be found in the file
-> epl-v10.html at the root of this distribution. By using this software
-> in any fashion, you are agreeing to be bound by the terms of this
-> license. You must not remove this notice, or any other, from this
-> software.
+> Copyright © Rich Hickey, Alessandra Sierra, and contributors
 
-
-[Eclipse Public License 1.0]: http://opensource.org/licenses/eclipse-1.0.php
+> All rights reserved. The use and distribution terms for this software are covered by the Eclipse Public License 1.0 which can be found in the file epl-v10.html at the root of this distribution. By using this software in any fashion, you are agreeing to be bound by the terms of this license. You must not remove this notice, or any other, from this software.
