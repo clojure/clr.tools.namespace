@@ -19,7 +19,7 @@ Latest stable release: 1.5.3
 
 [CLI/`deps.edn`](https://clojure.org/reference/deps_edn) dependency information:
 ```clojure
-io.github.clojure/clr.tools.namespace {:git/tag "v1.5.3" :git/sha "d540923"}
+io.github.clojure/clr.tools.namespace {:git/tag "v1.5.3" :git/sha "ca0f5dc"}
 ```
 
 [Nuget](https://nuget.org) reference:
