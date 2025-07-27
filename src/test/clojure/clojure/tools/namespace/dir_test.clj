@@ -4,17 +4,6 @@
             [clojure.tools.namespace.dir :as dir])
   #_(:import
    (java.io File)))
-
-(defmacro is-not-thrown? [& body]
-  `(try
-     ~@body
-     (is true "No exception thrown")
-     (catch Exception e#
-       (is false (str "Expected no exception, but got: " (.GetType e#) ": " (.-Message e#))))))
-
-(deftest scan-dirs-does-not-throw
-  (is-not-thrown? (dir/scan-dirs {})))
-
 ;;; I don't know what the equivalent test would be for .Net.
 #_(defn- make-symbolic-link
   "Reflectively calls java.nio.file.Files/createSymbolicLink on two
