@@ -18,7 +18,9 @@
             [clojure.set :as set]
             [clojure.string :as string])
   (:import (System.IO DirectoryInfo FileSystemInfo Path) (System.Text.RegularExpressions Regex)))    ;;; (java.io File) (java.util.regex Pattern)
+  
 (declare make-dir-info)
+
 (defn- find-files [dirs platform]
   (->> dirs
        (map make-dir-info)                         ;;; (map io/file)
@@ -36,14 +38,14 @@
   (filter (partial modified-since-tracked? tracker) files))         ;;; (.lastModified ^File %)
 
 (defn- deleted-files [tracker files]
-  (set/difference (::files tracker #{}) (set files)))
+  (set (remove #(file/some-file files %) (::files tracker #{}))))                                             ;;; (set/difference (::files tracker #{}) (set files))
 
 (defn- update-files [tracker deleted modified {:keys [read-opts]}]
-  (let [now (DateTime/UtcNow)]                                             ;;; (System/currentTimeMillis)
+  (let [now (milliseconds-since-epoch DateTime/UtcNow)]                        ;;; (System/currentTimeMillis)
     (-> tracker
         (update-in [::files] #(if % (apply disj % deleted) #{}))
         (file/remove-files deleted)
-        (update-in [::files] into modified)
+        (update-in [::files] file/into-files modified)                         ;;; (update-in [::files] into modified)
         (file/add-files modified read-opts)
         (assoc ::time now))))
 
@@ -64,7 +66,7 @@
   Optional third argument is map of options:
 
     :platform  Either clj (default) or cljs, both defined in
-               clojure.tools.namespace.find, controls reader options for 
+               clojure.tools.namespace.find, controls reader options for
                parsing files.
 
     :add-all?  If true, assumes all extant files are modified regardless
@@ -90,8 +92,8 @@
 
   Optional third argument is map of options:
 
-    :platform  Either clj (default) or cljs, both defined in 
-               clojure.tools.namespace.find, controls file extensions 
+    :platform  Either clj (default) or cljs, both defined in
+               clojure.tools.namespace.find, controls file extensions
                and reader options.
 
     :add-all?  If true, assumes all extant files are modified regardless
@@ -123,14 +125,15 @@
  dependency tracker to reload files. If no dirs given, defaults to
   all directories on the classpath."
   {:added "0.2.0"
-   :deprecated "0.3.0"}[tracker & dirs]
+   :deprecated "0.3.0"}
+  [tracker & dirs]
   (scan-dirs tracker dirs {:platform find/cljr :add-all? true}))          ;;; find/clj  -- is this correct?
 	
 ;;; ADDED
 
-(defn- make-dir-info 
+(defn- make-dir-info
   ^DirectoryInfo [x]
-  (cond 
+  (cond
     (instance? DirectoryInfo x) x
 	(string? x) (DirectoryInfo. ^String x)
 	:default (DirectoryInfo. (str x))))

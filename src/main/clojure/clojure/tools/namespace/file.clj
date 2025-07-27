@@ -67,7 +67,38 @@
   read by the Clojure (JVM) compiler."
   [^System.IO.FileSystemInfo file]                                         ;;; java.io.File
   (file-with-extension? file clojure-clr-extensions))
+
+;; Dealing with FileInfo.Equals is reference-based, not structuaral  -- via Brandon Correa
+
+(defn- files= [file-1 file-2]
+  (= (.-FullName file-1) (.-FullName file-2)))
+
+(defn some-file [coll file]
+  (reduce #(when (files= file %2) (reduced %2)) nil coll))
   
+(defn into-files [files others]
+  (into files (remove #(some-file files %) others)))
+
+(defn- dissoc-files [m files]
+  (when m
+    (select-keys m (remove #(some-file files %) (keys m)))))
+
+(defn- get-file [filemap file]
+  (reduce #(when (files= file (first %2)) (reduced (second %2))) nil filemap))
+
+(defn- files->symbols [tracker files]
+  (let [filemap (::filemap tracker {})]
+    (keep #(get-file filemap %) files)))
+
+(defn- merge-file-map [m other]
+  (merge (dissoc-files m (keys other)) other))
+
+(defn- distinct-files [files]
+  (reduce #(-> (disj %1 (some-file %1 %2))
+               (conj %2)) #{} files))  
+
+;; 
+ 
 ;;; Dependency tracker
 
 (defn- files-and-deps [files read-opts]
@@ -79,9 +110,10 @@
                     (assoc-in [:depmap name] deps)
                     (assoc-in [:filemap file] name)))
               m))
-          {} files))
-
-(def ^:private merge-map (fnil merge {}))
+          {} (distinct-files files)))                                      ;;; files
+ 
+ 
+(def ^:private merge-map (fnil merge-file-map {}))                         ;;;  (fnil merge {})
 
 (defn add-files
   "Reads ns declarations from files; returns an updated dependency
@@ -93,21 +125,20 @@
    (let [{:keys [depmap filemap]} (files-and-deps files read-opts)]
      (-> tracker
          (track/add depmap)
-         (update-in [::filemap] merge-map filemap)))))
+         (update ::filemap merge-map filemap)))))                          ;;; (update-in [::filemap] merge-map filemap)
 
 (defn remove-files
   "Returns an updated dependency tracker with files removed. The files
   must have been previously added with add-files."
   [tracker files]
   (-> tracker
-      (track/remove (keep (::filemap tracker {}) files))
-      (update-in [::filemap] #(apply dissoc % files))))
+      (track/remove (files->symbols tracker files))                        ;;; (track/remove (keep (::filemap tracker {}) files))
+      (update ::filemap dissoc-files files)))                              ;;; (update-in [::filemap] #(apply dissoc % files))
 
 ;;;  Added
 
 (defn is-file? [^System.IO.FileSystemInfo file]
   (not= (enum-and (.Attributes file) System.IO.FileAttributes/Directory) System.IO.FileAttributes/Directory))
-  
+
 (defn is-directory? [^System.IO.FileSystemInfo file]
   (= (enum-and (.Attributes file) System.IO.FileAttributes/Directory) System.IO.FileAttributes/Directory))  
-  
