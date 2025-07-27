@@ -29,14 +29,13 @@
        (mapcat #(find/find-sources-in-dir % platform))
        ))                                          ;;; ditto:  (map #(.getCanonicalFile ^File %))
 
-(defn- milliseconds-since-epoch [^DateTime time]
-  (long
-    (/ (- (.-Ticks time)
-          (.-Ticks DateTime/UnixEpoch))
-       TimeSpan/TicksPerMillisecond)))
+(defn- modified-since-tracked? [tracker file]
+  (if-let [time (::time tracker)]
+    (DateTime/op_LessThan time (.LastWriteTimeUtc ^FileSystemInfo file))
+    true))
 
 (defn- modified-files [tracker files]
-  (filter #(< (::time tracker 0) (milliseconds-since-epoch (.-LastWriteTimeUtc ^FileSystemInfo %))) files))   ;;; #(< (::time tracker 0) (.lastModified ^File %))
+  (filter (partial modified-since-tracked? tracker) files))         ;;; (.lastModified ^File %)
 
 (defn- deleted-files [tracker files]
   (set (remove #(file/some-file files %) (::files tracker #{}))))                                             ;;; (set/difference (::files tracker #{}) (set files))
@@ -138,6 +137,3 @@
     (instance? DirectoryInfo x) x
 	(string? x) (DirectoryInfo. ^String x)
 	:default (DirectoryInfo. (str x))))
-	
-	
-  
