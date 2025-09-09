@@ -28,7 +28,7 @@ io.github.clojure/clr.tools.namespace {:git/tag "v1.5.4" :git/sha "46d81cb"}
 	
 [Leiningen](https://leiningen.org/)  reference:
 ```clojure
-   [org.clojure.clr/tools.namespace "1.5.4]
+[org.clojure.clr/tools.namespace "1.5.4]
 ```
    
 
