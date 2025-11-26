@@ -1,4 +1,4 @@
-(defproject org.clojure.clr/tools.namespace "1.5.4"
+(defproject org.clojure.clr/tools.namespace "1.5.5"
   :description "Port of clojure.org/tools.namespace to ClojureCLR"
   :url "https://github.com/clojure/clr.tools.namespace"
   :license {:name "Eclipse Public License"
